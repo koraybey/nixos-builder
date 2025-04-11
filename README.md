@@ -26,6 +26,17 @@ mount /dev/vda1 /mnt/boot
 swapon /dev/vda2
 ```
 
+Clone configuration and install
+
+```shell
+git clone https://github.com/koraybey/nixos-builder
+cd nixos-builder && sudo nixos-install --root /mnt --flake .#builder-aarch64
+# shutdown
+shutdown now
+```
+
+Remove the image and boot the UTM VM!
+
 Move nebula certs and make them readable: https://nixos.wiki/wiki/Nebula
 
 ```shell
@@ -33,17 +44,6 @@ Move nebula certs and make them readable: https://nixos.wiki/wiki/Nebula
 sudo chmod --reference /etc/nix /etc/nebula
 sudo chmod --reference /etc/nix/nix.conf /etc/nebula/*
 ```
-
-Clone configuration and install
-
-```shell
-git clone https://github.com/koraybey/nixos-builder
-cd nixos-builder && nixos-install --root /mnt --flake .#builder-aarch64
-# shutdown
-shutdown now
-```
-
-Remove the image and boot the UTM VM!
 
 Generate the key on the client so that we can authorize it on the build machine
 ```shell

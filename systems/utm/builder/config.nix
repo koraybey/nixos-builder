@@ -1,7 +1,7 @@
 {
   pkgs,
   rootSSHKey,
-  userSSHKey,
+  authorizedKeys,
   ...
 }: {
   networking.hostName = "builder";
@@ -94,16 +94,11 @@
   users.users = {
     root = {
       hashedPassword = "!"; # Disable root login
-      openssh.authorizedKeys.keys = [
-        rootSSHKey
-      ];
     };
     user = {
       isNormalUser = true;
       extraGroups = ["wheel"];
-      openssh.authorizedKeys.keys = [
-        userSSHKey
-      ];
+      openssh.authorizedKeys.keys = authorizedKeys;
     };
   };
 
