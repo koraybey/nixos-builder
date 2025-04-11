@@ -1,4 +1,4 @@
-Obtain the minimal ISO image required to boot and install on UTM:https://nixos.org/download/#minimal-iso-image
+[Obtain the minimal ISO image required to boot and install on UTM](https://nixos.org/download/#minimal-iso-image)
 
 Create partitions
 
