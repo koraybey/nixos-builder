@@ -37,9 +37,8 @@ sudo chmod --reference /etc/nix/nix.conf /etc/nebula/*
 Clone configuration and install
 
 ```shell
-curl -LO https://github.com/koraybey/nixos-builder
-unzip ./main.zip
-cd nixos-main && nixos-install --root /mnt --flake .#builder-aarch64
+git clone https://github.com/koraybey/nixos-builder
+cd nixos-builder && nixos-install --root /mnt --flake .#builder-aarch64
 # shutdown
 shutdown now
 ```
