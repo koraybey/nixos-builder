@@ -35,9 +35,9 @@ cd nixos-builder && sudo nixos-install --root /mnt --flake .#builder-aarch64
 shutdown now
 ```
 
-Remove the image and boot the UTM VM!
+Remove the image and boot the virtual machine
 
-Move nebula certs and make them readable: https://nixos.wiki/wiki/Nebula
+Enable nebula by moving nebula certs and make them readable: https://nixos.wiki/wiki/Nebula
 
 ```shell
 # Move certs to /etc/nebula, then
@@ -45,12 +45,11 @@ sudo chmod --reference /etc/nix /etc/nebula
 sudo chmod --reference /etc/nix/nix.conf /etc/nebula/*
 ```
 
-Generate the key on the client so that we can authorize it on the build machine
+Copy the pre-generated builder key to user dir and rebuild the remote machine
+
 ```shell
-ssh-keygen
-eval "$(ssh-agent -s)"
-ssh-add /home/admin/.ssh/id_ed25519
-# Obtain the public key
-cat /home/admin/.ssh/.ssh/id_ed25519.pub
-# Add it to authorizedKeys
+cp id_ed25519 ~/.ssh/
+# https://nixos.wiki/wiki/Nixos-rebuild
+nixos-rebuild --target-host admin@192.168.100.2 --use-remote-sudo switch --flake
+.#med-nixos-rpi
 ```

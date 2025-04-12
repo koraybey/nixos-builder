@@ -10,12 +10,12 @@
     auto-optimise-store = true;
   };
 
-  environment.systemPackages = [
-    pkgs.vim
-    pkgs.git
-    pkgs.zip
-    pkgs.unzip
-    pkgs.wget
+  environment.systemPackages = with pkgs; [
+    vim
+    git
+    zip
+    unzip
+    wget
   ];
 
   fileSystems."/" = {
@@ -31,8 +31,12 @@
       device = "/dev/disk/by-label/swap";
     }
   ];
-
-  services.spice-vdagentd.enable = true;
+  # https://docs.getutm.app/guest-support/linux/
+  fileSystems."/mnt/utm" = {
+    device = "share";
+    fsType = "9p";
+    options = ["trans=virtio" "version=9p2000.L" "rw" "_netdev" "nofail" "auto"];
+  };
 
   services.nebula.networks.mesh = {
     enable = true;
